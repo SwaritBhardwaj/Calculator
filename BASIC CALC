@@ -1,0 +1,75 @@
+##IMPORTING TKINTER LIBRARIES FOR GUI
+from tkinter import *
+from tkinter import messagebox
+##CREATING A VARIABLE
+font=('Arial', 20, 'bold')
+
+##CREATING PARENT WINDOW
+root=Tk()
+root.title('Calculator')
+
+##CREATING AN ENTRY BOX WIDGET AND STTING ITS DIMENSIONS FOR INPUT
+calcDisplay=Entry(root,width = 30, borderwidth=10, font=font)
+calcDisplay.grid(row=0, column=0, columnspan=4, padx=40, pady=10)
+
+##CREATING A FRAME FOR BUTTON WIDGETS
+padFrame=Frame(root).grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
+##DEFINING FUNCTIONS FOR VARIOUS COMMANDS FROM WIDGETS
+def evaluate(event):
+    if event.widget['text']=='Evaluate':
+        try:
+            function=calcDisplay.get()
+            solution=eval(function)
+            calcDisplay.delete(0,END)
+            calcDisplay.insert(END,str(solution))
+        except Exception as error:
+            messagebox.showerror("Error", error)
+
+        
+    elif event.widget['text']== 'Clear':
+        try:
+            confirm = messagebox.askyesno("Confirm","Are you sure you want to clear the screen")
+            if confirm == True:
+                calcDisplay.delete(0,END) 
+        except Exception as error:
+            messagebox.showerror("Error", error)
+
+    else:
+        try:
+            function=calcDisplay.get()
+            calcDisplay.delete(0,END)
+            calcDisplay.insert(END,str(function)+ str(event.widget['text']))
+        except Exception as error:
+            messagebox.showerror("Error", error)
+           
+
+ ##DEFINING BUTTON WIDGETS ON PAD FRAME AND SETTING THEIR GRIDS
+buttonEval=Button(padFrame, text="Evaluate", padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
+buttonEval.bind("<Button-1>", evaluate) 
+buttonEval.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+buttonClr=Button(padFrame, text="Clear", padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
+buttonClr.bind("<Button-1>", evaluate)
+buttonClr.grid(row=1, column=2, columnspan=2, padx=10, pady=10)
+
+ ##LOOP TO MINIMALIZE CODE FOR GRID SETUP OF NUMERAL BUTTONS
+for i in range(0,10):
+    buttoni=Button(padFrame, text=i, padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
+    buttoni.bind("<Button-1>", evaluate)
+    if i>=7 and i<=9:
+        buttoni.grid(row=2, column=i-6, columnspan=1, padx=10, pady=10)   
+    if i>=4 and i<=6:
+        buttoni.grid(row=3, column=i-3, columnspan=1, padx=10, pady=10) 
+    if i<=3:
+        buttoni.grid(row=4, column=i, columnspan=1, padx=10, pady=10)
+
+buttonAdd=Button(padFrame, text="+", padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
+buttonAdd.bind("<Button-1>", evaluate)
+buttonAdd.grid(row=2, column=0, columnspan=1, padx=10, pady=10)
+
+buttonSub=Button(padFrame, text="-", padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
+buttonSub.bind("<Button-1>", evaluate)
+buttonSub.grid(row=3, column=0, columnspan=1, padx=10, pady=10)
+
+root.mainloop() 
