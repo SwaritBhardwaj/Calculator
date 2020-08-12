@@ -44,7 +44,7 @@ def evaluate(event):
             messagebox.showerror("Error", error)
            
 
- ##DEFINING BUTTON WIDGETS ON PAD FRAME AND SETTING THEIR GRIDS
+ ##DEFINING BUTTON WIDGETS ON PAD FRAME AND SETTING THEIR CONFIGURATION
 buttonEval=Button(padFrame, text="Evaluate", padx=40, pady=20, font=font, relief="ridge", activeforeground="white",  activebackground="black")
 buttonEval.bind("<Button-1>", evaluate) 
 buttonEval.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
