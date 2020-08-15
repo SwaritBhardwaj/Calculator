@@ -30,7 +30,7 @@ def evaluate(event):
         
     elif event.widget['text']== '  Clear  ':
         try:
-            confirm = messagebox.askyesno("Confirm","Are you sure you want to clear the screen")
+            confirm = messagebox.askyesno("Confirm","Are you sure you want to clear the screen?")
             if confirm == True:
                 calcDisplay.delete(0,END) 
         except Exception as error:
